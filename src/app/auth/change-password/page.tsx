@@ -41,10 +41,16 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
-    // console.log(JSON.stringify(data, null, 2));
-    await changePassword({ email, ...data });
-    await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
-    reset();
+    console.log('Form data submitted:', data); // Log the submitted form data
+    console.log('User email:', email); // Log the email being used for the request
+    try {
+      await changePassword({ email, ...data });
+      console.log('Password change successful'); // Log success
+      await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
+      reset();
+    } catch (error) {
+      console.error('Error changing password:', error); // Log any errors
+    }
   };
 
   if (status === 'loading') {
